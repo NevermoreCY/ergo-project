@@ -1,0 +1,736 @@
+;;;  This is a simple agent that is reactive to other agent's movement
+;;;  It will track another agent's movement and perform corresponding actions.
+(include "controlled-bridge3.scm")              ; define the interfaces to SW
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;  
+
+;; Help functions for defining exoprog
+
+(define (:starDFS prog)
+  (:choose (:begin prog (:starDFS prog)) :nil ) )
+
+;; function for tracking movements 
+(define (forwardLook)
+  (:begin
+  (:act forward)
+  (:act look)
+   )
+  )
+;; function for turn around
+(define (turnForward)
+  (:begin
+  (:act left)
+  (:act left)
+  (:starDFS (:act forward))
+   )
+  )
+
+;; function for store acorn and then come back
+(define (StoreAndBack)
+   (:begin
+    (:act right)
+    (:act right)
+    (:starDFS (:act forward))
+    (:act right)
+    (:starDFS (:act forward))
+    (:act drops)
+    (:act drops)
+    (:act right)
+    (:act right)
+    (:starDFS (:act forward))
+    (:starDFS (:act left))
+    (:starDFS (:act forward))
+    )
+  )
+
+;; function correspond to the "acorn present" function in squirrel 2  
+(define (acorn)
+   (:begin
+    (:starDFS (StoreAndBack))
+    (:act pick)
+    (:starDFS (StoreAndBack))
+    (:act smell)
+    
+    )
+  )
+
+;; function correspond to the "stroll North" function in squirrel 2 
+(define (FSL)
+   (:begin
+    (:act forward)
+    (:act smell)
+    (:starDFS (acorn))
+    (:act look)
+    )
+  )
+
+; using the coordinate of our agent (reversed coordinate of the target agent)
+;; function correspond to the "acorn present" function in squirrel 3 
+(define (pickAndDrop)
+   (:begin
+    ; pick the first acorn
+    (:act think)
+    (:act pick)
+    ; go to x3 
+    (:if (> (caaddr acorns) (caar (cdddr acorns)) )
+         ; if x3 < x4
+         (:begin
+         (:choose (:act left) (:act right))
+         (:starDFS (:act forward))
+         
+         )
+         ; if x3 = x4
+         ; turn around
+         (:begin
+          (:act right)
+          (:act right)
+         )
+
+         )
+    ; go to y3
+    
+    (:if (> (car (cdaddr acorns)) (cadar (cdddr acorns)) )
+         ; if y3 < y4
+         (:begin
+         (:choose (:act left) :nil)
+         (:starDFS (:act forward))
+         )
+         ; if y3 >= x4
+         (:if (< (car (cdaddr acorns)) (cadar (cdddr acorns)) )
+              ; if y3 > y4
+              (:begin
+               (:act right)
+               (:starDFS (:act forward))
+               )
+              ; if y3 = y4
+              :nil
+              
+              )
+         )
+    ; arrived at x3 y3
+    ; 
+    (:act pick)
+    ; move to x2 
+    (:if (> (caadr acorns) (caaddr acorns) )
+         ; if x2 < x3
+         (:begin
+         (:choose (:act left) (:act right))
+         (:starDFS (:act forward))
+         
+         )
+         ; if x3 = x4
+         (:choose (:begin (:act right) (:act right) ) (:act left) :nil)
+
+         )
+    ; go to y2
+    
+    (:if (> (cadadr acorns) (car (cdaddr acorns)) )
+         ; if y2 < y3
+         (:begin
+         (:choose (:act left) :nil)
+         (:starDFS (:act forward))
+         )
+         ; if y2 >= x3
+         (:if (< (cadadr acorns) (car (cdaddr acorns)) )
+              ; if y2 > y3
+              (:begin
+               (:act right)
+               (:starDFS (:act forward))
+               )
+              ; if y2 = y3
+              :nil
+              
+              )
+         )
+    ; drop acrons
+    (:act drops)
+    (:act drops)
+
+    ; go to x1
+    (:if (> (caar acorns) (caadr acorns) )
+         ; if x1 < x2
+         (:begin
+         (:choose (:act left) (:act right))
+         (:starDFS (:act forward))
+         
+         )
+         ; if x1 = x2
+         (:choose (:begin (:act right) (:act right) ) (:act left) :nil)
+
+         )
+    ; go to y1
+    (:if (> (cadar acorns) (cadadr acorns) )
+         ; if y1 < y2
+         (:begin
+         (:choose (:act left) :nil)
+         (:starDFS (:act forward))
+         )
+         ; if y1 >= x2
+         (:if (< (cadar acorns) (cadadr acorns) )
+              ; if y1 > y2
+              (:begin
+               (:act right)
+               (:starDFS (:act forward))
+               )
+              ; if y1 = y2
+              :nil
+              
+              )
+         )
+
+    ; pick the acorn
+
+    (:act pick)
+
+
+    ; go to x2
+    (:if (> (caar acorns) (caadr acorns) )
+         ; if x1 > x2
+         (:begin
+
+         (:choose (:act right) (:act left))
+         (:starDFS (:act forward))
+         
+         )
+         ; if x1 = x2
+         (:choose (:begin  (:act right) (:act right)) (:act left) :nil)
+
+         )    
+
+    ; go to y2
+    (:if (< (cadar acorns) (cadadr acorns) )
+         ; if y1 < y2
+         (:begin
+         (:choose (:act right) :nil)
+         (:starDFS (:act forward))
+         )
+         ; if y1 >= x2
+         (:if (> (cadar acorns) (cadadr acorns) )
+              ; if y1 > y2
+              (:begin
+               (:choose (:act left) :nil)
+               (:starDFS (:act forward))
+               )
+              ; if y1 = y2
+              :nil
+              
+              )
+         )
+    ; drop the acorn
+
+    (:act drops)
+    ; go to x4
+    (:if (> (caadr acorns) (caar (cdddr acorns)) )
+         ; if x2 > x4
+         (:begin
+         (:choose (:act right) (:act left) :nil)
+         (:starDFS (:act forward))
+         
+         )
+         ; if x1 = x2
+         (:choose (:begin (:act right) (:act right) ) (:act left) :nil)
+
+         )    
+
+    ; go to y4
+    (:if (> (cadadr acorns) (cadar (cdddr acorns)) )
+         ; if y2 > y4
+         (:begin
+         (:choose (:act left) :nil)
+         (:starDFS (:act forward))
+         )
+         ; if y2 <= y4
+         (:if (<= (cadadr acorns) (cadar (cdddr acorns)) )
+              ; if y1 > y2
+              (:begin
+               (:act right)
+               (:starDFS (:act forward))
+               )
+              ; if y1 = y2
+              :nil
+              
+              )
+         )
+     (:act resetMem)
+     (:choose (:begin (:act right) (:act right) ) :nil)
+     (:act forward)
+
+
+
+    )
+
+
+
+
+  )
+;; function correspond to the "stroll North" function in squirrel 3
+(define (FSL2)
+   (:begin
+    (:act forward)
+    (:act smell)
+    (:starDFS (:act record))
+;    (:choose (:begin (:act think)(pickAndDrop)) (:act look))
+    (:starDFS (pickAndDrop))
+    (:act look)
+    
+    )
+  )
+
+;; function correspond to the "main" function in squirrel 2 
+(define (Loop1)
+  (:begin
+   (:starDFS (FSL))
+   (:act right)
+   (:act right)
+   (:starDFS (:act forward))
+   (:act left)
+   (:act forward)
+   (:act smell)
+   (:starDFS (acorn))
+   (:act left)
+      )
+  )
+
+;; function correspond to the "main" function in squirrel 3 
+(define (Loop2)
+  (:begin
+   (:starDFS (FSL2))
+   (:act right)
+   (:act right)
+   (:starDFS (:act forward))
+   (:act left)
+   (:act forward)
+   (:act smell)
+   (:starDFS (:act record))
+   (:act left)
+      )
+  )
+
+
+;; Plan for Simple-Squirrel 
+(define (simpleSquirrel)
+  (:begin
+   
+   (:starDFS (forwardLook))
+   (:starDFS (turnForward))
+   
+    )
+  )
+
+;; Plan for store-Squirrel (squirrel 2)
+(define (storeSquirrel)
+  (:begin
+   (:starDFS (Loop1))
+   
+      )
+  )
+
+
+;; Plan for Seek-Squirrel (squirrel 3)
+(define (seekSquirrel)
+  (:begin
+   (:starDFS (Loop2))
+   
+      )
+  )
+
+
+; define initial states
+(define-states ((i 1000))
+  ;; fluents for target (other agent)
+  ;; similar fluents is named as targetxxxx to distinguish with our own agent
+  targetX 29
+  targetY 49
+  targetDirection 'north  
+  steps  0
+  acorns '()
+  dropx -1
+  dropy -1
+  ;; fluents for this agent
+  xposition 0
+  yposition 0
+  direction 0
+  mysteps 0
+  seen 'nothing
+  smelled 0
+  targetPlan 'notDecided
+  carrying 0
+  stashed 0
+  exoProg (:begin
+           (:act choosePlan!)
+           (:act think)
+           (:if (eq? targetPlan 'simple) (simpleSquirrel)
+		       (:if (eq? targetPlan 'store) (storeSquirrel)
+			    (seekSquirrel)))
+                  ;(:act forward)
+                  
+		  )
+  )
+
+
+
+
+
+
+
+
+
+;; all the possible actions for target (observed) agent:
+;; naming are similar to the function name in target agent's code
+
+;; action for target agent to choose a plan
+(define-action choosePlan! #:sequential? #t
+  targetPlan (DISCRETE-GEN 'simple (/ 1.0 3.0) 'store (/ 1.0 3.0) 'seek (/ 1.0 3.0))
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'choosePlan! exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to pick an acorn
+(define-action pick  #:sequential? #t  ; turn left
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'pick exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to drop an acorn
+(define-action drops  #:sequential? #t  ; turn left
+  dropx targetX
+  dropy targetY
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'drops exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to record position of an acorn
+(define-action record  #:sequential? #t  ; look ahead
+  acorns (append acorns (list (list targetX targetY   )))
+  
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'record exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to look ahead
+(define-action look  #:sequential? #t  ; look ahead
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'look exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to smell
+(define-action smell  #:sequential? #t  ; look ahead
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'smell exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to reset memory
+(define-action resetMem  #:sequential? #t  ; look ahead
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'resetMem exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to think
+(define-action think  #:sequential? #t  ; look ahead
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'think exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  )
+
+;; action for target agent to move forward
+(define-action forward  #:sequential? #t; go forward
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'forward exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  ;count step
+  steps  (+ steps 1)
+  ; update target's x or y postion
+  ; for target, x and y axis are reversed as our agent
+  targetX (+ targetX (case targetDirection ((east) -1) ((west) 1) (else 0)))
+  targetY (+ targetY (case targetDirection ((north) -1) ((south) 1) (else 0)))
+
+  )
+
+;; action for target agent to turn left
+(define-action left  #:sequential? #t  ; turn left
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'left exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  ; update direction
+  targetDirection (cadr (assq targetDirection dirL))
+  
+  )
+
+;; action for target agent to turn right
+(define-action right  #:sequential? #t  ; turn right
+  exoProg (let ((res (ergo-do #:mode 'offlineStepMatch #:matchAct 'right exoProg))) (if res (cadr res) :fail))
+  weight (if (equal? exoProg :fail) 0.0 weight)
+  ; update direction
+  targetDirection (cadr (assq targetDirection dirR))
+  ) 
+
+
+;; helper function for tracking target agent's position
+
+(define dirL '((north west) (west south) (south east) (east north)))
+(define dirR '((north east) (west north) (south west) (east south)))
+(define ymax 50)
+
+;; digital version of direction, north = 0; south =1; east=2; west = 3.
+(define dL '((0 3) (3 1) (1 2) (2 0)))
+(define dR '((0 2) (3 0) (1 3) (2 1)))
+
+;; do action a and wait for exogenous response
+(define (check a) (:atomic (:act a) (:test #t) (:wait)))
+
+;; function cooresponding to face-dir in squirrel 2
+(define (face-dir dir)       ; rotate to face dir
+
+  (:if (> (belief (eq? direction dir)) 0.95) :nil
+       ;check if my right is the desired direction   
+       (:if (eq? dir (cadr (assq (inexact->exact (sample-mean direction))   dR))) (check selfRight)     
+            ;check if my left is the desired direction
+            (:if (eq? dir (cadr (assq (inexact->exact (sample-mean direction)) dL))) (check selfLeft)
+                 ; i must at the opposite direction 
+                 (:begin (check selfRight) (check selfRight))))))
+
+;; function cooresponding to go-dir in squirrel 2
+(define (go-dir dir)         ; face dir, then one step forward
+  (:begin (face-dir dir) (check selfForward)))
+
+;; function cooresponding to dump-at-nest in squirrel 2
+(define (dump-at-nest)       ; drop all carried acorns at nest
+  (do-at-nest (:for-all i (inexact->exact (sample-mean carrying)) (check selfDrops)))
+  )
+
+;; function cooresponding to face-dir in squirrel 2
+(define (acorns-present)     ; behaviour when acorns are smelled
+  (:while (> (inexact->exact (sample-mean carrying)) 1)
+     (dump-at-nest)
+     )
+  )  ; check feel is removed for this 
+
+;; helper function for our(controlled) agent's reaction
+
+;; function cooresponding to run-to in squirrel 2
+(define (run-to x y)         ; run to (x,y) but east/west on x-axis only
+  (:begin
+   ;; run to x
+    (:if (< x (inexact->exact (sample-mean xposition))) (:for-all i (- (inexact->exact (sample-mean xposition)) x) (:begin (go-dir 3) (:>>(displayBeliefs)) )   )
+        (:for-all i (- x (inexact->exact (sample-mean xposition))) (:begin (go-dir 2) (:>>(displayBeliefs)) )    ))
+   ;; run to y
+    (:if (< y (inexact->exact (sample-mean yposition))) (:for-all i (- (inexact->exact (sample-mean yposition)) y) (:begin (go-dir 1) (:>>(displayBeliefs)) )   )
+        (:for-all i (- y (inexact->exact (sample-mean yposition))) (:begin (go-dir 0) (:>>(displayBeliefs)) )   ))
+    )
+  )
+
+;; function cooresponding to do-at-nest in squirrel 2
+(define (do-at-nest prog)    ; run to (1,1), do prog, then run back
+  (:let ((x (inexact->exact (sample-mean xposition))) (y (inexact->exact (sample-mean yposition)))) (run-to 0 0) prog (run-to x y))
+  )
+
+;; function cooresponding to stroll-north in squirrel 2
+(define (stroll-north)       ; walk north, smelling and looking for walls
+  ;(:until (or (eq? seen 'wall) (> yposition (/ ymax 2)))
+  (:until (> (sample-mean yposition) (/ ymax 2))
+    (:>> (printf  "mean of smelled  ~s~n" (sample-mean smelled)))
+    (go-dir 0)
+    (check selfSmell)
+    (:when (= (inexact->exact (sample-mean smelled)) 1)
+           (check selfPick)
+           
+           )
+    (:>>(displayBeliefs))
+    
+    ))
+
+
+
+
+;; actions for our agent, action for our controlled agent are starting with SelfXXX as a prefix
+;; to distinguish with similar actions in observed agent
+
+;;  motion actions
+(define-action quit)
+
+;; action for the controlled agent to move forward
+(define-action selfForward
+   xposition (+ xposition (case direction ((2) 1) ((3) -1) (else 0)))
+   yposition (+ yposition (case direction ((0) 1) ((1) -1) (else 0)))
+   ;smelled   0
+   mysteps   (+ mysteps 1)
+   seen      'nothing)
+
+;; action for the controlled agent to turn left
+(define-action selfLeft  
+   direction (cadr (assq direction dL))
+   seen      'nothing)
+
+;; action for the controlled agent to turn right
+(define-action selfRight  
+   direction (cadr (assq direction dR))
+   seen      'nothing)
+
+;;  acorn actions
+
+;; action for the controlled agent to drop acorn
+(define-action selfDrops  
+   carrying  (- carrying 1)
+   stashed   (+ stashed 1))
+
+;; action for the controlled agent to pick acorn
+(define-action selfPick
+   carrying  (if (< carrying 0) 1 (+ carrying 1))
+   stashed   (if (and (= xposition 1) (= yposition 1))
+                (- stashed 1)  ; picking from stash
+                stashed))      ; picking from elsewhere
+
+;;  sensing actions
+
+;; action for the controlled agent to look ahead
+(define-action selfLook)
+
+;; action for the controlled agent to smell
+(define-action selfSmell)
+
+;;  exogenous actions received from server
+(define-action (set-view! x)
+  seen x
+  )
+(define-action (set-aroma! x)
+  smelled (car x)
+  )
+
+
+
+;; function to print degree of beliefs for different fluents 
+(define (displayBeliefs)
+(printf  "(beliefl (eq? targetPlan notDecided)) returns ~s~n" (belief (eq? targetPlan 'notDecided)))
+  (printf  "(belief (eq? targetPlan simple)) returns ~s~n" (belief (eq? targetPlan 'simple)))
+  (printf  "(belief (eq? targetPlan store)) returns ~s~n" (belief (eq? targetPlan 'store)))
+  (printf  "(belief (eq? targetPlan seek)) returns ~s~n" (belief (eq? targetPlan 'seek)))
+  (printf  "mean of target x position ~s~n" (sample-mean targetX))
+  (printf  "mean of target y position ~s~n" (sample-mean targetY))
+  (printf  "mean of carrying ~s~n" (sample-mean carrying))
+  (printf  "mean of stashed  ~s~n" (sample-mean stashed))
+  (printf  "mean of smelled  ~s~n" (sample-mean smelled))
+  (printf  "mean of self x position ~s~n" (sample-mean xposition))
+  (printf  "mean of self y position ~s~n" (sample-mean yposition))
+  (printf  "mean of target x position ~s~n" (sample-mean targetX))
+  (printf  "mean of target y position ~s~n" (sample-mean targetY))
+  (printf  "mean of dropx ~s~n" (sample-mean dropx))
+  (printf  "mean of dropy ~s~n" (sample-mean dropy))
+ )
+
+ ;reaction when target plan is recognized  as simple squirrel
+(define (reaction1)
+  (:begin
+   (:while #t             ; systematic search of grid
+           (stroll-north)             ; walk north as far as possible
+           (run-to (inexact->exact (sample-mean xposition)) 1)       ; run back to x-axis
+           (go-dir 2)             ; take one step east
+           (check selfSmell)
+           (acorns-present)
+           )
+   )
+
+  )
+
+; reaction when target plan is recognized  as store squirrel (squirrel2)
+(define (reaction2)
+  (:begin (run-to 29 49)
+          (check selfSmell)
+          (:when (= (inexact->exact (sample-mean smelled)) 2)
+                 (check selfRight)
+                 (check selfRight)                                                           
+                 (check selfPick)
+                 (check selfPick)
+                 (run-to 29 44)
+                 (check selfDrops)
+                 (check selfDrops)
+                 )
+          )
+  
+
+  )
+
+; reaction when target plan is recognized  as seek squirrel (squirrel3)
+(define (reaction3)
+  (:begin 
+   ; if dropx and dropy is not -1
+   (:if  (and (not(= (inexact->exact (sample-mean dropx)) -1)) (not(= (inexact->exact (sample-mean dropy)) -1)))
+                                                                                   
+         (:begin
+          (:>> (printf "dropx=~a dropy=~a \n" (inexact->exact (sample-mean dropx)) (inexact->exact (sample-mean dropy)) ))
+          (run-to (inexact->exact (sample-mean dropx)) (inexact->exact (sample-mean dropy)))
+          (:wait)
+          ;(run-to 29 44)
+          (check selfPick)
+          (check selfPick)
+          (run-to 29 44)
+          (check selfDrops)
+          (check selfDrops)
+          )
+
+         (:when (or (not (= (sample-mean targetX) (sample-mean xposition) )) (not (= (sample-mean targetY) (sample-mean yposition) )))
+                (:begin
+                 ;(:>> (printf "target x=~a dropy=~a \n" (inexact->exact (sample-mean dropx)) (inexact->exact (sample-mean dropy)) ))
+                 (run-to (inexact->exact (sample-mean targetX)) (inexact->exact (sample-mean targetY)) )
+                 )      
+                )      
+         )
+   )
+  )
+
+ ;reaction when target plan has not been recognized
+(define (reaction4)
+  (:begin
+   (:when (< (sample-mean xposition) 28)                                     
+          (go-dir 2)
+          )
+   (:when (< (sample-mean yposition) 48) 
+          (go-dir 0)
+          )
+
+   )
+  )
+
+
+(define observeUpdtLoop
+  (:begin
+   ; (:act choosePlan!)
+   (:while #t (:begin (:>>
+                       (display "Waiting for exogenous action:\n")  
+                       (printf "Target steps is ~a \n" (sample-mean steps))
+                       (printf "My steps is ~a \n" (sample-mean mysteps))
+                       (displayBeliefs)
+                       ;; (:>>(displayBeliefs))
+                       )
+                      (:wait)
+                      ;reaction when target plan has not been recognized
+                      (:when  (and (< (belief (eq? targetPlan 'store)) 0.95)  (< (belief (eq? targetPlan 'simple)) 0.95) (< (belief (eq? targetPlan 'seek)) 0.95))
+                              (:begin
+                               (reaction4)
+                               )
+                              )
+                     
+                      ;reaction when target plan is recognized  as simple squirrel
+                      (:when (> (belief (eq? targetPlan 'simple)) 0.95) (:begin
+                                                                         (reaction1)
+                                                                         ))
+                                                                        
+                      ; reaction when target plan is recognized  as store squirrel (squirrel2)                                                           ))
+                      (:when (> (belief (eq? targetPlan 'store)) 0.95) (:begin
+                                                                        (reaction2)
+                                                                        ))
+                      ; reaction when target plan is recognized  as seek squirrel (squirrel 3)
+                      (:when (> (belief (eq? targetPlan 'seek)) 0.95) (:begin
+                                                                       (reaction3)
+                                                                       ))
+                      )
+           ))
+  )
+
+
+;; port for receiving action from target agent
+(define-interface 'in
+  (let ((ports (open-tcp-server 8234)))
+    
+    (lambda () (read (car ports)) )))
+
+(define (main) (ergo-do #:mode 'onlineSynchronized observeUpdtLoop))
+
+
