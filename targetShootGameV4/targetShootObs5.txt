@@ -1,0 +1,8 @@
+chooseTarget!
+setAim!
+endObsAim!
+rest!
+shoot!
+(obsHit! 0)
+reset!
+halt!

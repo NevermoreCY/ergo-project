@@ -1,0 +1,27 @@
+chooseTarget!
+setAim!
+(obsAim! 90)
+endObsAim!
+rest!
+shoot!
+(obsHit! 2)
+reset!
+chooseTarget!
+setAim!
+(obsAim! 0)
+(obsAim! 30)
+endObsAim!
+rest!
+shoot!
+(obsHit! 0)
+reset!
+chooseTarget!
+setAim!
+(obsAim! 60)
+(obsAim! 65)
+endObsAim!
+rest!
+shoot!
+(obsHit! 1)
+reset!
+halt!

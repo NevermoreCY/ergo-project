@@ -1,0 +1,13 @@
+chooseTarget!
+setAim!
+(obsAim! 30)
+(obsAim! 66)
+(obsAim! 96)
+(obsAim! 96)
+(obsAim! 96)
+endObsAim!
+rest!
+shoot!
+(obsHit! 2)
+reset!
+halt!

@@ -1,0 +1,367 @@
+    Loading ERGO v1.5 (Mar 2018) in Racket v7.8 ...
+    Loading ERGO EXTENDED v1.0 (Nov 2019) ...
+Loading on demand E:\2020 Fall course\csc495\ErgoExt\ErgoExt\System\ergo-do.scm
+Starting monitors for 1 exogenous and 1 endogenous interfaces.
+Opening file targetShootObs.txt to receive exogenous actions!
+(beliefl (eq? decisionTarget notDecided)) returns 1.0
+(belief (eq? decisionTarget 0)) returns 0.0
+(belief (eq? decisionTarget 1)) returns 0.0
+(belief (eq? decisionTarget 2)) returns 0.0
+(belief (aiming at target 0)) returns 0.0
+(belief (aiming at target 1)) returns 0.0
+(belief (aiming at target 2)) returns 0.0
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3917 ms
+test #t
+<<< Exogenous act: chooseTarget!
+Elapsed time for belief update 3620 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 0.32987
+(belief (eq? decisionTarget 1)) returns 0.329424
+(belief (eq? decisionTarget 2)) returns 0.340706
+(belief (aiming at target 0)) returns 0.0
+(belief (aiming at target 1)) returns 0.0
+(belief (aiming at target 2)) returns 0.0
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3404 ms
+test #t
+<<< Exogenous act: setAim!
+Elapsed time for belief update 1081 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 0.32987
+(belief (eq? decisionTarget 1)) returns 0.329424
+(belief (eq? decisionTarget 2)) returns 0.340706
+(belief (aiming at target 0)) returns 0.32987
+(belief (aiming at target 1)) returns 0.329424
+(belief (aiming at target 2)) returns 0.340706
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3245 ms
+test #t
+<<< Exogenous act: (obsAim! 30)
+Elapsed time for belief update 1795 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 0.9890277338660651
+(belief (eq? decisionTarget 1)) returns 0.010972250579878601
+(belief (eq? decisionTarget 2)) returns 1.5557677230951337e-008
+(belief (aiming at target 0)) returns 0.9890277338660651
+(belief (aiming at target 1)) returns 0.010972250579878601
+(belief (aiming at target 2)) returns 1.5557677230951337e-008
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3465 ms
+test #t
+<<< Exogenous act: (obsAim! 66)
+Elapsed time for belief update 4776 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 0.14201582835507656
+(belief (eq? decisionTarget 1)) returns 0.8579840898822627
+(belief (eq? decisionTarget 2)) returns 8.175854861319289e-008
+(belief (aiming at target 0)) returns 0.14201582835507656
+(belief (aiming at target 1)) returns 0.8579840898822627
+(belief (aiming at target 2)) returns 8.175854861319289e-008
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3613 ms
+test #t
+<<< Exogenous act: (obsAim! 96)
+Elapsed time for belief update 1676 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 3.750847360896882e-008
+(belief (eq? decisionTarget 1)) returns 0.9999480721405165
+(belief (eq? decisionTarget 2)) returns 5.189035263844622e-005
+(belief (aiming at target 0)) returns 3.750847360896882e-008
+(belief (aiming at target 1)) returns 0.9999480721405165
+(belief (aiming at target 2)) returns 5.189035263844622e-005
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3647 ms
+test #t
+<<< Exogenous act: (obsAim! 96)
+Elapsed time for belief update 1676 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 8.266918224613817e-015
+(belief (eq? decisionTarget 1)) returns 0.972517155431925
+(belief (eq? decisionTarget 2)) returns 0.027482844574878942
+(belief (aiming at target 0)) returns 8.266918224613817e-015
+(belief (aiming at target 1)) returns 0.972517155431925
+(belief (aiming at target 2)) returns 0.027482844574878942
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3577 ms
+test #t
+<<< Exogenous act: (obsAim! 96)
+Elapsed time for belief update 1663 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 1.1753836883429786e-022
+(belief (eq? decisionTarget 1)) returns 0.0610153155992246
+(belief (eq? decisionTarget 2)) returns 0.9389846844033329
+(belief (aiming at target 0)) returns 1.1753836883429786e-022
+(belief (aiming at target 1)) returns 0.0610153155992246
+(belief (aiming at target 2)) returns 0.9389846844033329
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3614 ms
+test #t
+<<< Exogenous act: endObsAim!
+Elapsed time for belief update 4025 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 1.1753836883429786e-022
+(belief (eq? decisionTarget 1)) returns 0.0610153155992246
+(belief (eq? decisionTarget 2)) returns 0.9389846844033329
+(belief (aiming at target 0)) returns 1.1753836883429786e-022
+(belief (aiming at target 1)) returns 0.0610153155992246
+(belief (aiming at target 2)) returns 0.9389846844033329
+(belief (eq? endObsAim #f)) returns 0.0
+(belief (eq? endObsAim #t)) returns 1.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3301 ms
+<<< Exogenous act: rest!
+>>> Executing act (shield! 2)
+Elapsed time for belief update 1977 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 1.1753836883429786e-022
+(belief (eq? decisionTarget 1)) returns 0.0610153155992246
+(belief (eq? decisionTarget 2)) returns 0.9389846844033329
+(belief (aiming at target 0)) returns 1.1753836883429786e-022
+(belief (aiming at target 1)) returns 0.0610153155992246
+(belief (aiming at target 2)) returns 0.9389846844033329
+(belief (eq? endObsAim #f)) returns 0.0
+(belief (eq? endObsAim #t)) returns 1.0
+(belief (eq? shielded notDecided)) returns 0.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 1.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3396 ms
+<<< Exogenous act: shoot!
+Elapsed time for belief update 1657 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 1.1753836883429786e-022
+(belief (eq? decisionTarget 1)) returns 0.0610153155992246
+(belief (eq? decisionTarget 2)) returns 0.9389846844033329
+(belief (aiming at target 0)) returns 1.1753836883429786e-022
+(belief (aiming at target 1)) returns 0.0610153155992246
+(belief (aiming at target 2)) returns 0.9389846844033329
+(belief (eq? endObsAim #f)) returns 0.0
+(belief (eq? endObsAim #t)) returns 1.0
+(belief (eq? shielded notDecided)) returns 0.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 1.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 1.1753836883429786e-022
+(belief (vector-ref targetHit 1)) returns 0.0610153155992246
+(belief (vector-ref targetHit 2)) returns 0.9389846844033329
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score 0.0
+variance of score 0.0
+Elapsed time for belief queries and display 3260 ms
+<<< Exogenous act: (obsHit! 2)
+Elapsed time for belief update 1641 ms
+(beliefl (eq? decisionTarget notDecided)) returns 0.0
+(belief (eq? decisionTarget 0)) returns 0.0
+(belief (eq? decisionTarget 1)) returns 0.0
+(belief (eq? decisionTarget 2)) returns 1.0
+(belief (aiming at target 0)) returns 0.0
+(belief (aiming at target 1)) returns 0.0
+(belief (aiming at target 2)) returns 1.0
+(belief (eq? endObsAim #f)) returns 0.0
+(belief (eq? endObsAim #t)) returns 1.0
+(belief (eq? shielded notDecided)) returns 0.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 1.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 1.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score -20.000000000165482
+variance of score -7.831090442778077e-009
+Elapsed time for belief queries and display 3241 ms
+<<< Exogenous act: reset!
+Elapsed time for belief update 4530 ms
+(beliefl (eq? decisionTarget notDecided)) returns 1.0
+(belief (eq? decisionTarget 0)) returns 0.0
+(belief (eq? decisionTarget 1)) returns 0.0
+(belief (eq? decisionTarget 2)) returns 0.0
+(belief (aiming at target 0)) returns 0.0
+(belief (aiming at target 1)) returns 0.0
+(belief (aiming at target 2)) returns 0.0
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score -19.99999999942282
+variance of score 2.8704448595817667e-008
+Elapsed time for belief queries and display 3520 ms
+test #t
+<<< Exogenous act: halt!
+Elapsed time for belief update 971 ms
+(beliefl (eq? decisionTarget notDecided)) returns 1.0
+(belief (eq? decisionTarget 0)) returns 0.0
+(belief (eq? decisionTarget 1)) returns 0.0
+(belief (eq? decisionTarget 2)) returns 0.0
+(belief (aiming at target 0)) returns 0.0
+(belief (aiming at target 1)) returns 0.0
+(belief (aiming at target 2)) returns 0.0
+(belief (eq? endObsAim #f)) returns 1.0
+(belief (eq? endObsAim #t)) returns 0.0
+(belief (eq? shielded notDecided)) returns 1.0
+(belief (eq? shielded 0)) returns 0.0
+(belief (eq? shielded 1)) returns 0.0
+(belief (eq? shielded 2)) returns 0.0
+(belief (eq? shielded none)) returns 0.0
+(belief (vector-ref targetHit 0)) returns 0.0
+(belief (vector-ref targetHit 1)) returns 0.0
+(belief (vector-ref targetHit 2)) returns 0.0
+(belief (vector-ref targetDamaged 0)) returns 0.0
+(belief (vector-ref targetDamaged 1)) returns 0.0
+(belief (vector-ref targetDamaged 2)) returns 0.0
+mean of score -19.99999999942282
+variance of score 2.8704448595817667e-008
+Elapsed time for belief queries and display 3670 ms
+System wins.
+Online program complete
+Stopping all interface monitors.
+Total time for run 82459 ms
