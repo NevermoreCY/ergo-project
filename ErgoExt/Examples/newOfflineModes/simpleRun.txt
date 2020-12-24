@@ -1,0 +1,80 @@
+YvesMacBook:newOfflineModes lesperan$ racket -l ergoExt -i -f simple.scm 
+Welcome to Racket v6.5.
+    Loading ERGO v1.5 (Mar 2018) in Racket v6.5 ...
+ >  (ergo-do #:mode 'offline (nondet3))
+
+(a b d)
+OK? (y or n) n
+
+(b a d)
+OK? (y or n) n
+
+(b b d)
+OK? (y or n) n
+
+(b c d)
+OK? (y or n) n
+
+(c b d)
+OK? (y or n) n
+#f
+ > (ergo-do #:mode 'offlineStepAsk (nondet3))
+
+in history () can do action a
+proceed with this action? (y or n) y
+
+in history (a) can do action a
+proceed with this action? (y or n) y
+
+in history (a) can do action b
+proceed with this action? (y or n) y
+
+in history (a b) can do action d
+proceed with this action? (y or n) y
+
+(a b d)
+OK? (y or n) n
+
+in history (a) can do action c
+proceed with this action? (y or n) y
+
+in history () can do action b
+proceed with this action? (y or n) n
+
+in history () can do action c
+proceed with this action? (y or n) y
+
+in history (c) can do action a
+proceed with this action? (y or n) y
+
+in history (c) can do action b
+proceed with this action? (y or n) y
+
+in history (c b) can do action d
+proceed with this action? (y or n) y
+
+(c b d)
+OK? (y or n) n
+
+in history (c) can do action c
+proceed with this action? (y or n) y
+#f
+> (ergo-do #:mode 'collecting (nondet3))
+Loading on demand /Users/lesperan/Library/Application Support/ErgoExt/ergo-do.scm
+'((c b d) (b c d) (b b d) (b a d) (a b d))
+> (ergo-do #:mode 'offlineStep (nondet3))
+
+can do action a with remaining proram #<procedure:...Ext/proglang.scm:122:7>
+
+can do action b with remaining proram #<procedure:...Ext/proglang.scm:122:7>
+
+can do action c with remaining proram #<procedure:...Ext/proglang.scm:122:7>
+#f
+> (ergo-do #:mode 'offlineStepColl (nondet3))
+'((c #<procedure:...Ext/proglang.scm:122:7>)
+  (b #<procedure:...Ext/proglang.scm:122:7>)
+  (a #<procedure:...Ext/proglang.scm:122:7>))
+> (ergo-do #:mode 'offlineStepMatch #:matchAct b (nondet3))
+'(b #<procedure:...Ext/proglang.scm:122:7>)
+> ^D
+YvesMacBook:newOfflineModes lesperan$

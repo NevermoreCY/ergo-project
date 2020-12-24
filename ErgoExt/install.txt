@@ -1,0 +1,47 @@
+This describes how to setup and run the Ergo Extended software.
+
+First install Racket Scheme and Ergo as described in the Ergo install.txt file.
+
+INSTALLATION OF ERGO EXTENDED SOFTWARE
+
+1- First, copy  all the files in the Ergo/System/ directory to a new directory ErgoExt
+   somewhere convenient, away from user ERGO programs.  On a Mac, a reasonable
+   choice is to create "~/Library/Application Support/ErgoExt/" and put them there.
+
+   Then replace the files full-system.scm and ergo.scm by the one in ErgoExt/System/.
+
+2- Then find out where Racket keeps user-defined collections.  
+   It's the first element of "(current-library-collection-paths)":
+
+   > racket -e '(car (current-library-collection-paths))'
+   #<path:/Users/hector/Library/Racket/6.5/collects>
+
+3- Create the user /path/to/collects/ directory from (2) if needed, and a new
+   subdirectory inside it called "ergoExt".
+
+4- Put a file called "main.ss" in the "ergoExt" directory from step (3).  It
+   should contain just the following three lines:
+
+   (module main racket
+     (require (file "/path/to/implementation/full-system.scm"))
+     (provide (all-from-out (file "/path/to/implementation/full-system.scm"))))
+
+   where the "/path/to/implementation/" is the directory from step (1) above.
+
+5- Test that ERGO is correctly installed:
+
+   > racket -l ergoExt -e '(ergo-do :nil)'
+       Loading ERGO v1.5 (Mar 2018) in Racket v6.5 ...
+   '()
+
+RUNNING ERGO  EXTENDED SOFTWARE
+
+This is done as for Ergo, but using the ergoExt library.
+
+To run interactively:
+
+   racket -l ergoExt -i 
+
+To run interactively after loading an Ergo file myfile.scm:
+
+   racket -l ergoExt -i -f myfile.scm

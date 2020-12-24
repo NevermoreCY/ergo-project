@@ -1,0 +1,48 @@
+Tue, 2 Oct 2018 Re: offlineStepColl mode
+
+Good news!  I have been able to use the new offlineStepColl mode of ergo-do
+to advance through a program that represents the possible behavior of the
+observed agent.  (I had to make a change to ergo-do for this to work; please
+put the new version in your ergoExt library directory.)
+
+You can see how this works in the following examples:
+
+- simpleExoProg.scm: shows that the exogenous program gets updated as
+exogenous actions are observed;
+
+- simpleExoProgV2.scm: similar to the above but with actions that take
+arguments;
+
+- prec3wExoProg.ergo.scm: implements the coat example with an exogenous
+program that gets updated;
+
+- rec3wExoProgV2.ergo.scm: similar to the above, but where the exogenous
+program allows different actions in different possible states, and sets the
+weight to 0 when the observed action is not possible in the state.
+
+-------
+
+Thu, 12 Sep 2019 Re: onlineSynchronized mode
+
+I think I have come up with a simpler and better way to input exogenous
+actions from a file and process them, displaying belief and timing info.
+I have defined a new ergo-do mode "onlineSynchronized" that only processes a
+single exogenous action at each transition.  To use it, update your
+ergo-do.scm System file to the one attached (in your ErgoExt library).
+The example in prec3wExoProgV5.ergo.scm uses it and coatRun3.txt contains
+the generated output.
+
+--------
+
+Wed, 6 Nov 2019 Re: offlineStepMatch modex
+
+I have added a new mode offlineStepMatch in ergo-do that looks for the remaining program after performing the action given as value of the new optional parameter matchAct, e.g. (ergo-do #:mode 'offlineStepMatch #:matchAct a prog) looks for the remaining program after performing action a  with program prog.  If the action can be performed, it returns a list containing the action and the remining program, and otherwise it returns #f.  This mode works better than offlineStepColl if there are many actions that the progran can perform (and offlineStepColl returns a long list with all of them).
+
+Note that offlineStepMatch, offlineStepColl, and offlineStep modes produce errors when the program is :nil or (:test condition) because these call the continuation which is #f, i.e., not a procedure.  We have to set the continuation to #f so that sequences such as (:begin act prog) are handled correctly: the remaining program after we do act is the continuation left from act followed by prog, and if this continuation is #f, the execution proceeds with prog as desired.  So any program that we run these modes on should end with an action. It is easy to add a new action halt! at the end of any program that might not do any action, e.g. (:begin :nil (:act halt!)) runs successfuly producing action halt! with remaining program #f, at which point we know that we are done.
+
+Also, offlineStepMatch, offlineStepColl, and offlineStep modes produce errors when the program is (:star prog).  But we can define an equivalent alternative version that works:
+
+(define (:starDFS prog)
+  (:choose :nil (:begin prog (:starDFS prog))))
+
+
