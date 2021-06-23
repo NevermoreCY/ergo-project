@@ -1,6 +1,6 @@
 # ergo-project
 
-There are 3 files in this reprository.
+This is the ergo-project repository written by Yu(Kevin) Chen.
 Ergoext contains the "Ergo" programing language modified by prof Yves Lesperance. The README.txt inside that folder gives an 
 instruction on how to install the language.
 
